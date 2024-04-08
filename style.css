@@ -48,6 +48,13 @@ select {
     border-color: light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
 }
 
+button {
+    background-color: #ccc1be;
+    border-width: 2px;
+    border-style: inset;
+    border-color: light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
+}
+
 .button-div {
     width: clamp(50px, 30%, 100px);
     height: 25px;
@@ -69,9 +76,20 @@ select {
     background-color: #FFF8DC;
     border-radius: 10px;
     max-height: 200px;
+    display: grid;
+    grid-template-rows: repeat(5, 1fr) ;
 }
 
 .books > div > p {
-    margin-left: 2%;
+    margin: 3% 0 0 3%;
     
+}
+
+.books > div > div {
+    justify-self: center;
+    min-width: 200px;
+}
+
+.books > div > div > :first-child {
+    margin-right: 2%;
 }

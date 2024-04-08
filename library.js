@@ -11,9 +11,11 @@ function Book(title,author,numPages,read) {
 };
 
 
-const inputs = document.querySelectorAll('input')
-const submitButton = document.querySelector('.submit')
-const bookContainer = document.querySelector('.books')
+const inputs = document.querySelectorAll('input');
+let removeButtons;
+let toggleReadButtons;
+const submitButton = document.querySelector('.submit');
+const bookContainer = document.querySelector('.books');
 
 //take user input and initialize new Book object, storing it in myLibrary array
 function addBookToLibrary() {
@@ -36,37 +38,96 @@ submitButton.addEventListener('click', () => {
         input.value = '';
     })
     readStatus.value = '';
-    console.log(myLibrary);
+    
     bookContainer.innerHTML = '';
-    // for each book object in myLibrary area, apend a card div into the "books" div that displays
-    // the book info 
-    myLibrary.forEach((book) => {
-        
-        
+    displayBooks();
+
+    
+
+    
+})
+
+// for each book object in myLibrary area, apend a card div into the "books" div that displays
+// the book info 
+function displayBooks() {
+    bookContainer.innerHTML = '';
+    myLibrary.forEach((book) => { 
         const divCard = document.createElement('div');
+        const buttonDiv = document.createElement('div');
 
         bookContainer.appendChild(divCard);
         
-        // const titleCard = document.createTextNode(`Title: ${book.title}`)
-        // const authorCard = document.createTextNode(`Author: ${book.author}`)
-        // const numPagesCard = document.createTextNode(`Number of Pages: ${book.numPages}`)
-        // const readStatusCard = document.createTextNode(`Read?: ${book.read}`)
         const titleCard = document.createElement('p');
         const authorCard = document.createElement('p');
         const numPagesCard = document.createElement('p');
         const readStatusCard = document.createElement('p');
+        const removeButton = document.createElement('button')
+        const toggleReadButton = document.createElement('button')
 
-        titleCard.textContent = `Title: ${book.title}`
-        authorCard.textContent = `Author: ${book.author}`
-        numPagesCard.textContent = `Number of Pages: ${book.numPages}`
-        readStatusCard.textContent = `Read?: ${book.read}`
+        divCard.id = `div${myLibrary.indexOf(book)}`;
+        removeButton.id = myLibrary.indexOf(book);
+        toggleReadButton.id = myLibrary.indexOf(book);
+        divCard.classList.add('div-card');
+        removeButton.classList.add('remove-button');
+        toggleReadButton.classList.add('toggle-read-button');
+
+        
+        
+
+        titleCard.textContent = `Title: ${book.title}`;
+        authorCard.textContent = `Author: ${book.author}`;
+        numPagesCard.textContent = `Number of Pages: ${book.numPages}`;
+        readStatusCard.textContent = `Read?: ${book.read}`;
+        removeButton.textContent = `Remove Book`;
+        toggleReadButton.textContent = `Toggle Read`;
     
+        buttonDiv.appendChild(removeButton);
+        buttonDiv.appendChild(toggleReadButton);
+
         divCard.appendChild(titleCard);
         divCard.appendChild(authorCard);
         divCard.appendChild(numPagesCard);
         divCard.appendChild(readStatusCard);
+        divCard.appendChild(buttonDiv);
+
+        divCards = document.querySelectorAll('.div-card')
+        removeButtons = document.querySelectorAll('.remove-button');
+        toggleReadButtons = document.querySelectorAll('.toggle-read-button');
+
     })
-})
+    enableRemove();
+    enableToggle();
+}
+
+function removeBookFromLibrary(bookIndex) {
+    myLibrary.splice(bookIndex,1);
+};
+
+//this runs right when page opens, need to run it every time a book is added
+function enableRemove() {
+    removeButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+            removeBookFromLibrary(button.id);
+            displayBooks();
+        })
+    });
+}
+
+function enableToggle() {
+    toggleReadButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+            if (myLibrary[button.id].read === 'Yes') {
+                myLibrary[button.id].read = 'No';
+            } else {
+                myLibrary[button.id].read = 'Yes'
+            }
+            displayBooks();
+            console.log(myLibrary[button.id].read);
+        })
+    })
+}
+
+
 
 
 
