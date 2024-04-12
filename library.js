@@ -1,14 +1,28 @@
 const myLibrary = [];
 
-function Book(title,author,numPages,read) {
-    this.title = title;
-    this.author = author;
-    this.numPages = numPages;
-    this.read = read;
-    this.info = function() {
-        return `${title} by ${author}, ${numPages} pages, ${read} yet`;
-    };
-};
+class Book{
+    constructor(title,author,numPages,read) {
+        this.title = title;
+        this.author = author;
+        this.numPages = numPages;
+        this.read = read;
+    }
+    info = () => {
+        return `${this.title} by ${this.author}, ${this.numPages} pages, ${this.read} yet`;
+    }
+}
+
+
+
+// function Book(title,author,numPages,read) {
+//     this.title = title;
+//     this.author = author;
+//     this.numPages = numPages;
+//     this.read = read;
+//     this.info = function() {
+//         return `${title} by ${author}, ${numPages} pages, ${read} yet`;
+//     };
+// };
 
 
 const inputs = document.querySelectorAll('input');
